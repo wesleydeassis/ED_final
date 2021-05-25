@@ -2,8 +2,6 @@ package controller;
 
 import java.time.LocalDate;
 
-import cliente.Clientes;
-
 public class Reserva {
     private LocalDate DataFesta;
     private LocalDate DataPrevista;
@@ -15,13 +13,12 @@ public class Reserva {
     private double PrecoFinal;
 
     private String Cliente;
-    
-    private Clientes Cli;
+    private int QtdeAluguel;
     private String Enfeite;
 
     public Reserva( LocalDate DataFesta, LocalDate DataPrevista, 
     LocalDate DataRetorno, String HoraInicio, String HoraPrevisto, String HoraRetorno, 
-    String FormaDePagamento, double PrecoFinal, String Cliente, String Enfeite ) {
+    String FormaDePagamento, double PrecoFinal, int QtdeAluguel, String Cliente, String Enfeite ) {
         this.DataFesta = DataFesta;
         this.DataPrevista = DataPrevista;
         this.DataRetorno = DataRetorno;
@@ -31,7 +28,16 @@ public class Reserva {
         this.FormaDePagamento = FormaDePagamento;
         this.PrecoFinal = PrecoFinal;
         this.Cliente = Cliente;
+        this.QtdeAluguel = QtdeAluguel;
         this.Enfeite = Enfeite;
+    }
+
+    public int getQtdeAluguel() {
+        return QtdeAluguel;
+    }
+
+    public void setQtdeAluguel(int qtdeAluguel) {
+        QtdeAluguel = qtdeAluguel;
     }
 
     public String getCliente() {
@@ -113,12 +119,4 @@ public class Reserva {
     public void setPrecoFinal(double precoFinal) {
         PrecoFinal = precoFinal;
     }
-
-	public Clientes getCli() {
-		return Cli;
-	}
-
-	public void setCli(Clientes cli) {
-		Cli = cli;
-	}
 }

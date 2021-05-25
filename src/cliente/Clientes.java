@@ -4,27 +4,25 @@ import java.time.LocalDate;
 
 public class Clientes {
     
-    private int CPF_RNE;
+    private String CPF_RNE;
     private String Nome;
     private String Telefone;
     private String Endereco;
     private LocalDate DataCadastro;
-    private int QtdeAluguel;
 
-    public Clientes(int CPF_RNE, String Nome, String Telefone, String Endereco, LocalDate DataCadastro, int QtdeAluguel) {
+    public Clientes(String CPF_RNE, String Nome, String Telefone, String Endereco, LocalDate DataCadastro) {
         this.CPF_RNE = CPF_RNE; 
         this.Nome = Nome;
         this.Telefone = Telefone;
         this.Endereco = Endereco;
         this.DataCadastro = DataCadastro;
-        this.QtdeAluguel = QtdeAluguel;
     }
 
-    public int getCPF_RNE() {
+    public String getCPF_RNE() {
         return CPF_RNE;
     }
 
-    public void setCPF_RNE(int cPF_RNE) {
+    public void setCPF_RNE(String cPF_RNE) {
         CPF_RNE = cPF_RNE;
     }
 
@@ -59,14 +57,4 @@ public class Clientes {
     public void setDataCadastro(LocalDate dataCadastro) {
         DataCadastro = dataCadastro;
     }
-
-    public int getQtdeAluguel() {
-        return QtdeAluguel;
-    }
-
-    public void setQtdeAluguel(int qtdeAluguel) {
-        QtdeAluguel = qtdeAluguel;
-    }
-
-    
 }

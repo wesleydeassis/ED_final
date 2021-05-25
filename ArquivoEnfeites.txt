@@ -1,5 +1,2 @@
-** Novo Enfeite:
-126
-bat
-battt
-89.0
+
+- Novo Enfeite, 874, bat, capa batman, 15.66
