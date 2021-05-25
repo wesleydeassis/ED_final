@@ -26,7 +26,7 @@ public class OperacoesDevolucao {
     private LocalDate DataRetorno;
     private String Cliente;
     private String Enfeite;
-    private int atraso;
+    private String status;
     private NO_Devolucao inicio;
     private BufferedReader buffer;
 
@@ -68,7 +68,7 @@ public class OperacoesDevolucao {
 
 		public void CadastrarDevolucao() {  
 			String df ="";
-			Devolucoes devolucao = new Devolucoes(DataFesta, DataPrevista, DataRetorno, Cliente, Enfeite, atraso);
+			Devolucoes devolucao = new Devolucoes(DataFesta, DataPrevista, DataRetorno, Cliente, Enfeite, status);
 			OperacoesReserva opR = new OperacoesReserva();
 			Cliente = JOptionPane.showInputDialog("Informe o CPF/RNE ou nome do cliente: ");
 			
@@ -87,12 +87,13 @@ public class OperacoesDevolucao {
 					
 				}
 				
+				Enfeite = JOptionPane.showInputDialog("Informe o tema: ");
 			
 			try {
 				String arqE = "ArquivoEnfeites.txt";
-				if ( opR.lerArquivos( arqE, Enfeite ) == true ) {
+				if ( opR.lerArquivos(arqE, Enfeite ) == true ) {
 					devolucao.setEnfeite(Enfeite);
-					//CalcularDesconto(PrecoFinal); //Precisamos pegar o preço do tema e CalcularDesconto(PrecoFinal);
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Tema não localizado em Reserva");
 					MenuDevolucao();
@@ -104,7 +105,7 @@ public class OperacoesDevolucao {
 			 DataRetorno = LocalDate.now();
 			 devolucao.setDataRetorno(DataRetorno);
 			 
-			// DataFesta = 
+			 
 					 
 			try {
 				df = BuscarDataArquivo(Cliente, "ArquivoReserva.txt");
@@ -119,20 +120,25 @@ public class OperacoesDevolucao {
 			DataPrevista =  DataFesta.plusDays(3);
 			devolucao.setDataPrevista(DataPrevista);		 
 		
-			//atraso = 
-					
-			Period periodo = Period.between(DataRetorno, DataPrevista);
-			atraso=periodo.getDays();
+		
+		
 			
-			devolucao.setAtraso(atraso);
 			
-			boolean status;
 			
-			if (atraso < 0) 
-				status = false;
-				else if(atraso > 0){
-					status = true;
-				}
+		   Period periodo = Period.between(DataRetorno, DataPrevista);
+		  int atraso=periodo.getDays();
+			String status="";
+
+			if (DataPrevista.compareTo(DataRetorno)>0){
+				status= " produto devolvido antes do prazo";}
+			else if(DataPrevista.compareTo(DataRetorno)<0){
+				status="Produto devolvido depois do prazo" + atraso+ " dias";}
+				else if (DataPrevista.compareTo(DataRetorno)==0){
+					status="Produto devolvido devolvido no dia previsto"; 
+			}
+			
+			devolucao.setStatus(status);
+
 			
 			
 			if (inicio == null) {							// verifica se a lista est vazia
@@ -149,14 +155,14 @@ public class OperacoesDevolucao {
 			} // fim do else
 			GravarDevolucao();
 			
-			JOptionPane.showMessageDialog(null, "Devolucao Registrada e gravada com sucesso!");  
+			JOptionPane.showMessageDialog(null, "Devolucao Registrada com sucesso!");  
 			System.out.println("Devolucao Registrada: \n" + 
 								" Cliente: " +devolucao.getCliente() + 
 								" - Tema: " +devolucao.getEnfeite()+ 
 								" - Data da Festa: " + devolucao.getDataFesta() +
-								" - Data da Prevista de retorno: " + devolucao.getDataPrevista()+
+								" - Data Previsão de devolução: " + devolucao.getDataPrevista()+
 								" - Data de devolucao: " + devolucao.getDataRetorno()+
-								" - Atraso: "+ devolucao.getAtraso());
+								" - Status: "+ devolucao.getStatus());
 			
 			
 		}
@@ -195,42 +201,7 @@ public class OperacoesDevolucao {
 			}
 		}
 
-/*
 
-		
-		public boolean BuscarEnfeites(String tema) {
-			NO_Enfeite nodo = inicio;
-			String aux = nodo.enfeites.getTemaEnfeite();
-
-			try {
-				while ( nodo != null ) {
-					if ( tema.equalsIgnoreCase(aux) ) {
-						JOptionPane.showMessageDialog(null, "Enfeite será apresentado no console!"); 
-						System.out.println( "Código " +nodo.enfeites.getCodTema()+ 
-											" - Tema: "+ nodo.enfeites.getTemaEnfeite()+
-											" - Descrição: " + nodo.enfeites.getDescricaoEnfeite()+
-											" - Preço: "+nodo.enfeites.getPreco());
-											return true;
-					} //fim if
-					nodo = nodo.prox;
-					aux = nodo.enfeites.getTemaEnfeite();
-				}
-			} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Enfeite não localizado!"); 
-			}
-			return false;
-		} // fim buscar
-		
-		
-		
-			Cliente, Enfeite, DataFesta, DataPrevista, dataRetorno, Atraso.
-		*/
-		
-		
-		
-	
-			
-		 // fim da lista de enfeites
 	
 
 		private void GravarDevolucao() {
@@ -259,8 +230,8 @@ public class OperacoesDevolucao {
 		            DataRetorno = aux.devolucao.getDataRetorno();
 		            gravar.write(aux.devolucao.getDataRetorno().toString()+", ");		            		
 		            
-		            atraso= aux.devolucao.getAtraso();
-		            gravar.write(String.valueOf(aux.devolucao.getAtraso())); 
+		            status= aux.devolucao.getStatus();
+		            gravar.write(aux.devolucao.getStatus()); 
 
 					aux = aux.prox;
 				}
@@ -311,7 +282,7 @@ public class OperacoesDevolucao {
 				}	
 			 
 		
-		} // fim gravar  enfeites
+		} 
 			
 		 
    

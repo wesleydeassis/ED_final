@@ -9,17 +9,17 @@ public class Devolucoes {
     private LocalDate DataRetorno;
     private String Cliente;
     private String Enfeite;
-    private int atraso;
+    private String status;
     
 	public Devolucoes(LocalDate dataFesta, LocalDate dataPrevista, LocalDate dataRetorno, String cliente,
-			String enfeite, int atraso) {
+			String enfeite, String status) {
 		
 		DataFesta = dataFesta;
 		DataPrevista = dataPrevista;
 		DataRetorno = dataRetorno;
 		Cliente = cliente;
 		Enfeite = enfeite;
-		this.atraso = atraso;
+		this.status = status;
 	}
 
 	public LocalDate getDataFesta() {
@@ -62,12 +62,12 @@ public class Devolucoes {
 		Enfeite = enfeite;
 	}
 
-	public int getAtraso() {
-		return atraso;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setAtraso(int atraso) {
-		this.atraso = atraso;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	
